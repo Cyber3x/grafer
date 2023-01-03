@@ -1,0 +1,26 @@
+{
+  "name": "grafer",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@tsconfig/svelte": "^3.0.0",
+    "@types/p5": "^1.4.3",
+    "p5": "^1.5.0",
+    "svelte": "^3.55.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "p5-svelte": "^3.1.2"
+  }
+}
