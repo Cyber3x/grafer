@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { sketch } from "./components/Sketch";
-
-  import P5 from "p5-svelte";
   import CommonSettings from "./lib/CommonSettings.svelte";
-  import { mainCanvasParrent } from "./components/stores";
-  $: if ($mainCanvasParrent) console.log($mainCanvasParrent);
+  import CanvasWrapper from "./lib/CanvasWrapper.svelte";
 </script>
 
 <main>
@@ -14,9 +10,7 @@
     <div class="btn-mode">Analyze</div>
   </div>
   <div class="body">
-    <div bind:this={$mainCanvasParrent} class="main-canvas-parent">
-      <P5 {sketch} />
-    </div>
+    <CanvasWrapper />
     <CommonSettings />
   </div>
 </main>
@@ -24,6 +18,7 @@
 <style>
   main {
     height: 100vh;
+    overflow: hidden;
   }
   .body {
     display: flex;
@@ -42,10 +37,5 @@
   .modes {
     background: #505050;
     display: flex;
-  }
-
-  .main-canvas-parent {
-    flex: 4;
-    height: 100vh;
   }
 </style>
