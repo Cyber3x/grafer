@@ -1,40 +1,51 @@
 <script lang="ts">
   import { sketch } from "./components/Sketch";
 
-  import {
-    d,
-    isDialogMainSettingsVisible,
-    numberOfNodes,
-  } from "./components/stores";
-
   import P5 from "p5-svelte";
+  import CommonSettings from "./lib/CommonSettings.svelte";
+  import { mainCanvasParrent } from "./components/stores";
+  $: if ($mainCanvasParrent) console.log($mainCanvasParrent);
 </script>
 
-<main class="main">
-  <P5 {sketch} />
-  {#if $isDialogMainSettingsVisible}
-    <div class="settings">
-      <p>Diameter</p>
-      <input type="range" bind:value={$d} min="10" max="100" />
-      <p>Number of nodes</p>
-      <input type="number" bind:value={$numberOfNodes} min="1" step="1" />
+<main>
+  <div class="modes">
+    <div class="btn-mode">Create</div>
+    <div class="btn-mode">Edit</div>
+    <div class="btn-mode">Analyze</div>
+  </div>
+  <div class="body">
+    <div bind:this={$mainCanvasParrent} class="main-canvas-parent">
+      <P5 {sketch} />
     </div>
-  {/if}
+    <CommonSettings />
+  </div>
 </main>
 
 <style>
-  .main {
-    max-height: 100vh;
-    overflow: hidden;
+  main {
+    height: 100vh;
+  }
+  .body {
     display: flex;
   }
 
-  .settings {
-    background-color: antiquewhite;
-    padding: 1em;
-    border-radius: 0.5em;
-    position: absolute;
-    top: 1em;
-    left: 1em;
+  .btn-mode {
+    padding: 0.5em 1em;
+    color: whitesmoke;
+    cursor: pointer;
+  }
+
+  .btn-mode:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modes {
+    background: #505050;
+    display: flex;
+  }
+
+  .main-canvas-parent {
+    flex: 4;
+    height: 100vh;
   }
 </style>
