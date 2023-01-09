@@ -9,12 +9,21 @@ import {
     graphRadius,
     mainCanvasHeight,
     mainCanvasWidth,
-} from "../components/stores";
+    GConsole,
+} from "../Stores/stores";
+import { isConsoleOpen } from "../Stores/UIStore";
 import { Graph } from "./Graph";
 
 let p5: p5Interface;
 
-let graph; Graph;
+let graph: Graph;
+
+let offset = {
+    x: 0,
+    y: 0,
+    prevX: undefined,
+    prevY: undefined
+}
 
 const sketch: Sketch = (_p5) => {
 
@@ -27,7 +36,9 @@ const sketch: Sketch = (_p5) => {
     };
 
     p5.draw = () => {
+        p5.translate(offset.x, offset.y)
         p5.background(50);
+        p5.circle(p5.width / 2, p5.height / 2, 10);
         graph.draw();
     };
 
@@ -35,6 +46,10 @@ const sketch: Sketch = (_p5) => {
         if (p5.keyCode === 83) {
             isDialogMainSettingsVisible.update((value) => !value);
         }
+
+        if (p5.keyCode === 67) {
+            isConsoleOpen.update(value => !value)
+        } // LETTER C
     };
 
     numberOfNodes.subscribe(newNumber => {
@@ -44,6 +59,7 @@ const sketch: Sketch = (_p5) => {
 
     nodeDiameter.subscribe((newDiameter) => {
         graph?.setNodeDiameter(newDiameter)
+        GConsole.log(newDiameter.toString());
         p5.redraw();
     });
 
@@ -58,7 +74,6 @@ const sketch: Sketch = (_p5) => {
     });
 
     const updateCanvasSize = (newWidth: number, newHeight: number) => {
-        console.log(newWidth, newHeight);
         p5.resizeCanvas(newWidth, newHeight);
         graph?.updateNodesPosition();
         p5.redraw();
@@ -71,6 +86,40 @@ const sketch: Sketch = (_p5) => {
     mainCanvasHeight.subscribe(newHeight => {
         updateCanvasSize(p5.width, newHeight)
     });
+
+    p5.mouseDragged = (e: MouseEvent) => {
+        if (e.target.className === 'p5Canvas' && p5.mouseButton === p5.LEFT) {
+            let x = p5.mouseX;
+            let y = p5.mouseY;
+
+            if (!offset.prevX) {
+                offset.prevX = x
+            } else {
+                let dx = x - offset.prevX;
+                offset.x += dx;
+                offset.prevX = x;
+            }
+
+            if (!offset.prevY) {
+                offset.prevY = y
+            } else { 
+                let dy = y - offset.prevY;
+                offset.y += dy;
+                offset.prevY = y;
+            };
+            GConsole.log(offset.x + " " + offset.y)
+            p5.redraw();
+        }
+        
+    }
+
+    p5.mouseReleased = () => {
+        offset.prevX = undefined;
+        offset.prevY = undefined;
+    }
+
+    // TODO: connect letter C to toggle console
+
 };
 
 

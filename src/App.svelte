@@ -1,41 +1,30 @@
 <script lang="ts">
-  import CommonSettings from "./lib/CommonSettings.svelte";
-  import CanvasWrapper from "./lib/CanvasWrapper.svelte";
+  import CanvasWrapper from "./components/EditorComponents/CanvasWrapper.svelte";
+  import Toolbar from "./components/EditorComponents/Toolbar.svelte";
+  import Console from "./components/EditorComponents/Console.svelte";
+  import SettingsEditor from "./components/EditorComponents/SettingsEditor.svelte";
 </script>
 
 <main>
-  <div class="modes">
-    <div class="btn-mode">Create</div>
-    <div class="btn-mode">Edit</div>
-    <div class="btn-mode">Analyze</div>
-  </div>
-  <div class="body">
-    <CanvasWrapper />
-    <CommonSettings />
-  </div>
+  <Toolbar />
+
+  <CanvasWrapper />
+  <Console />
+
+  <SettingsEditor />
 </main>
 
 <style>
   main {
+    display: grid;
     height: 100vh;
-    overflow: hidden;
-  }
-  .body {
-    display: flex;
-  }
-
-  .btn-mode {
-    padding: 0.5em 1em;
-    color: whitesmoke;
-    cursor: pointer;
-  }
-
-  .btn-mode:hover {
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .modes {
-    background: #505050;
-    display: flex;
+    width: 100vw;
+    grid-template-columns: 5% 75% 20%;
+    grid-template-rows: 5% 70% 21% 4%;
+    grid-template-areas:
+      "toolbar toolbar toolbar"
+      "canvas canvas settings-editor"
+      "console console settings-editor"
+      "console console settings-editor";
   }
 </style>

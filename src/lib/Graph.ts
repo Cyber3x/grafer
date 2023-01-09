@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import { mainCanvasHeight, mainCanvasWidth, nodeDiameter, nodeFillColor, numberOfNodes } from "./stores";
+import { mainCanvasHeight, mainCanvasWidth } from "../Stores/stores";
 import { Node } from "./Node"; 
 import { p5 } from "./Sketch";
 

@@ -1,5 +1,5 @@
-<div class="main">
-    <slot name="lable" class="lable">
+<div class="main input-field">
+    <slot name="lable">
         <p class="error">Missing lable</p>
     </slot>
 
@@ -11,8 +11,6 @@
 <style>
     .main {
         margin-bottom: 0.5em;
-        padding: 0.5em;
-        background-color: rgba(255, 255, 255, 0.05);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
