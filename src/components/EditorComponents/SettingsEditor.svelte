@@ -9,6 +9,7 @@
         paramA,
         paramB,
         paramC,
+        showNodesIds,
     } from "../../Stores/stores";
     import InlineNamedInputField from "../InlineNamedInputField.svelte";
     import SettingsField from "../SettingsField.svelte";
@@ -35,7 +36,7 @@
                 type="range"
                 bind:value={$graphRadius}
                 min="100"
-                max={$mainCanvasHeight / 2 - $nodeDiameter / 2}
+                max={$mainCanvasHeight * 2}
             />
         </SettingsField>
         <SettingsField>
@@ -48,22 +49,32 @@
                 max="100"
             />
         </SettingsField>
-        <SettingsField>
-            <p slot="lable">Nodes fill color</p>
-            <input slot="input" type="color" bind:value={$nodeFillColor} />
-        </SettingsField>
+        <InlineNamedInputField name="Nodes fill color">
+            <input type="color" bind:value={$nodeFillColor} />
+        </InlineNamedInputField>
 
-        <SettingsField>
-            <p slot="lable">Node stroke color</p>
-            <input slot="input" type="color" bind:value={$nodeStrokeColor} />
-        </SettingsField>
+        <InlineNamedInputField name="Node stroke color">
+            <input type="color" bind:value={$nodeStrokeColor} />
+        </InlineNamedInputField>
+
+        <InlineNamedInputField name="Show nodes id">
+            <input type="checkbox" bind:checked={$showNodesIds} />
+        </InlineNamedInputField>
     </SettingsGroup>
 
     <SettingsGroup title="Labos 3">
-        <InlineNamedInputField name="N" bind:value={$numberOfNodes} />
-        <InlineNamedInputField name="A" bind:value={$paramA} />
-        <InlineNamedInputField name="B" bind:value={$paramB} />
-        <InlineNamedInputField name="C" bind:value={$paramC} />
+        <InlineNamedInputField name="N">
+            <input type="number" bind:value={$numberOfNodes} />
+        </InlineNamedInputField>
+        <InlineNamedInputField name="A">
+            <input type="number" bind:value={$paramA} />
+        </InlineNamedInputField>
+        <InlineNamedInputField name="B">
+            <input type="number" bind:value={$paramB} />
+        </InlineNamedInputField>
+        <InlineNamedInputField name="C">
+            <input type="number" bind:value={$paramC} />
+        </InlineNamedInputField>
     </SettingsGroup>
 </div>
 

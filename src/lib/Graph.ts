@@ -10,12 +10,13 @@ export class Graph {
         this.nodeDiameter = nodeDiameter;
         this.nodeFillColor = nodeFillColor;
         this.graphRadius = graphRadius;
+        this.drawNodesId = true;
         
         this.regenerateNodes();
     }
 
     draw() {
-        this.nodes.forEach((node) => node.draw());
+        this.nodes.forEach((node) => node.draw({drawId: this.drawNodesId}));
     }
 
     regenerateNodes() {
@@ -24,7 +25,7 @@ export class Graph {
         for (let i = 0; i < this.numberOfNodes; i++) {
             let x = get(mainCanvasWidth) / 2 + p5.cos(angleDelta * i) * this.graphRadius;
             let y = get(mainCanvasHeight) / 2 + p5.sin(angleDelta * i) * this.graphRadius;
-            this.nodes.push(new Node(x, y, this.nodeDiameter, this.nodeFillColor));
+            this.nodes.push(new Node(x, y, this.nodeDiameter, i, this.nodeFillColor));
         }
     };
 
@@ -55,6 +56,10 @@ export class Graph {
             this.nodes[i].updatePosition(newX, newY);
         }
     }
+
+    setDrawNodesIds(newValue: boolean) {
+        this.drawNodesId = newValue;
+    }
 }
 
 export interface Graph {
@@ -63,5 +68,6 @@ export interface Graph {
     nodeDiameter: number;
     nodeFillColor: string;
     graphRadius: number;
+    drawNodesId: boolean;
 
 }

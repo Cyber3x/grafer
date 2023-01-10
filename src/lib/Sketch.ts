@@ -10,12 +10,12 @@ import {
     mainCanvasHeight,
     mainCanvasWidth,
     GConsole,
+    showNodesIds,
 } from "../Stores/stores";
 import { isConsoleOpen } from "../Stores/UIStore";
 import { Graph } from "./Graph";
 
 let p5: p5Interface;
-
 let graph: Graph;
 
 let offset = {
@@ -31,8 +31,8 @@ const sketch: Sketch = (_p5) => {
    
     p5.setup = () => {
         p5.createCanvas(get(mainCanvasWidth), get(mainCanvasHeight));
-        p5.noLoop();
         graph = new Graph(get(numberOfNodes), get(nodeDiameter), get(nodeFillColor), get(graphRadius));
+        p5.noLoop();
     };
 
     p5.draw = () => {
@@ -72,6 +72,12 @@ const sketch: Sketch = (_p5) => {
         graph?.setGraphRadius(newRadius)
         p5.redraw();
     });
+
+    showNodesIds.subscribe(value => {
+        graph?.setDrawNodesIds(value);
+        GConsole.log("Show node ids: " + value)
+        p5.redraw();
+    })
 
     const updateCanvasSize = (newWidth: number, newHeight: number) => {
         p5.resizeCanvas(newWidth, newHeight);

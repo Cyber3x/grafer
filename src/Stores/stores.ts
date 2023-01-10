@@ -1,14 +1,17 @@
 import { writable } from "svelte/store";
 
-export const nodeDiameter = writable<number>(50);
-export const nodeFillColor = writable<string>("#ff3399");
 export const isDialogMainSettingsVisible = writable<boolean>(true);
-export const numberOfNodes = writable<number>(10);
-export const nodeStrokeColor = writable<string>("#000");
-export const graphRadius = writable<number>((window.innerHeight / 4) * 0.8)
 
 export const mainCanvasWidth = writable<number>();
 export const mainCanvasHeight = writable<number>();
+
+// graph
+export const nodeDiameter = writable<number>(50);
+export const nodeFillColor = writable<string>("#ff3399");
+export const numberOfNodes = writable<number>(10);
+export const nodeStrokeColor = writable<string>("#000");
+export const graphRadius = writable<number>((window.innerHeight / 4) * 0.8)
+export const showNodesIds = writable<boolean>(true);
 
 
 // labos

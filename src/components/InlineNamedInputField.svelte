@@ -1,25 +1,29 @@
 <script lang="ts">
-    export let value: number;
     export let name: string;
 </script>
 
 <div class="input-field">
     <p>{name}</p>
-    <input type="number" bind:value />
+    <slot />
 </div>
 
 <style>
     .input-field {
         display: flex;
+        margin-bottom: 0.5em;
     }
 
     p {
         color: whitesmoke;
         flex: 1;
-        text-align: center;
+        align-self: center;
     }
 
-    input {
-        flex: 4;
+    .input-field :global(input) {
+        flex: 1;
+    }
+
+    :last-of-type {
+        margin-bottom: 0;
     }
 </style>
